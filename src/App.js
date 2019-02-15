@@ -29,7 +29,7 @@ class App extends Component {
     e.preventDefault();
     const allOrSome = (this.state.input === '~') ? '' : `?search=${this.state.input}`; 
     //is there a way to display all results? nested fetches to go to .next? (there are multiple pages )
-
+    //also is there a better way to implement a search/all option?
     fetch(`${this.BASE_URL}/${this.state.searchType}/${allOrSome}`, {
       method:'GET',
       headers: {'Content-Type': 'application/json'}
@@ -56,9 +56,10 @@ class App extends Component {
       <StarContext.Provider value={contextValue}>
       <div className="App">
         <header className="App-header">
+        <h1>Search for anything Star Wars!</h1>
           <form onSubmit={(e) => {this.handleSubmit(e)}}>
             <label>
-              Search for STAR WARS: <input required type = "text" onChange = {(e) => {this.state.handleChange(e.target.value)}}/>
+              Search: <input required type = "text" onChange = {(e) => {this.state.handleChange(e.target.value)}}/>
             </label>
             <label>
               Search by:
