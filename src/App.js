@@ -43,6 +43,7 @@ class App extends Component {
     .then(obj => {
       console.log(obj);
       this.state.addResults(obj.results)
+      return obj;
     })
     .catch(obj => console.log(e))
   }
@@ -51,7 +52,7 @@ class App extends Component {
     const contextValue = {
       results: this.state.results,
     }
-    // slight misunderstanding on how context syntax works
+    
     return (
       <StarContext.Provider value={contextValue}>
       <div className="App">
@@ -59,8 +60,8 @@ class App extends Component {
         <h1>Search for anything Star Wars!</h1>
           <form onSubmit={(e) => {this.handleSubmit(e)}}>
             <label>
-              Search: <input required type = "text" onChange = {(e) => {this.state.handleChange(e.target.value)}}/>
-            </label>
+              Search (type '~' to list all results): <input required type = "text" onChange = {(e) => {this.state.handleChange(e.target.value)}}/>
+            </label><br />
             <label>
               Search by:
               <select onChange = {(e) => this.setState({searchType:e.currentTarget.value})}> {/*why doesn't required work here?*/}
@@ -72,7 +73,7 @@ class App extends Component {
                 <option value = 'starships'>starships</option>
                 <option value = 'vehicles'>vehicles</option>
               </select>
-            </label>
+            </label><br />
             <button type = "submit">Submit</button>
           </form>
 
